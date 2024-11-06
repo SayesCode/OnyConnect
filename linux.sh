@@ -17,4 +17,4 @@ echo "Instalando dependências do Python..."
 pip install fastapi jinja2 uvicorn python-multipart
 
 echo "Iniciando..."
-python src/OnyConnect/main.py &
+python src/onyconnect/main.py &
