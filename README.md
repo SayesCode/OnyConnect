@@ -27,3 +27,9 @@ Welcome to the OnyConnect project! This repository provides a toolkit that allow
 2. **Seamless Integration**: You can run your `.onion` service anywhere – whether on a local server, a cloud instance, or your own machine. OnyConnect ensures that your service is accessible securely via Tor.
 
 3. **Enhanced Privacy**: Using the Tor network, OnyConnect ensures end-to-end encryption and routing through multiple nodes, providing unmatched privacy and security.
+
+## Disclaimer
+
+The OnyConnect Toolkit is designed to offer privacy and security through the Tor network. However, **it must not be used for any illegal activities**. The creator of this toolkit does not take responsibility for any misuse or unlawful actions performed with this software. By using OnyConnect, you agree to comply with all applicable laws and regulations.
+
+Always use this tool responsibly and ethically.
