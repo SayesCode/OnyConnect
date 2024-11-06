@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    text-align: center;
+}
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    font-weight: bold;
+}
+input {
+    padding: 8px;
+    margin-bottom: 10px;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+}
+button:hover {
+    background-color: #45a049;
+}
+.message {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #333;
+}

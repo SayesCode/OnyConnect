@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>OnyConnect - Configuração do Serviço .onion</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>OnyConnect - Configuração do Serviço .onion</h1>
+        <form method="post" action="/generate">
+            <label for="port">Porta:</label>
+            <input type="text" id="port" name="port" required>
+            <label for="directory">Diretório do site:</label>
+            <input type="text" id="directory" name="directory" required>
+            <button type="submit">Gerar .onion</button>
+        </form>
+        {% if message %}
+            <div class="message">{{ message }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
