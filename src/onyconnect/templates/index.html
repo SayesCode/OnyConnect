@@ -2,22 +2,83 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OnyConnect - Configuração do Serviço .onion</title>
     <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="container">
         <h1>OnyConnect - Configuração do Serviço .onion</h1>
-        <form method="post" action="/generate">
-            <label for="port">Porta:</label>
-            <input type="text" id="port" name="port" required>
-            <label for="directory">Diretório do site:</label>
-            <input type="text" id="directory" name="directory" required>
-            <button type="submit">Gerar .onion</button>
+
+        <!-- Formulário para configuração do serviço .onion -->
+        <form id="onion-form" method="post" action="/generate" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+                <label for="port">Porta:</label>
+                <input type="text" id="port" name="port" placeholder="Ex: 3000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="directory">Diretório do site:</label>
+                <input type="text" id="directory" name="directory" placeholder="Ex: /var/www/meusite" required>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submit-button">Gerar .onion</button>
         </form>
+
+        <!-- Exibição de mensagens de sucesso ou erro -->
         {% if message %}
-            <div class="message">{{ message }}</div>
+            <div class="message" id="message">
+                <p>{{ message }}</p>
+            </div>
         {% endif %}
     </div>
+
+    <!-- Scripts -->
+    <script>
+        // Função para tratar o envio do formulário
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Evita o envio do formulário para controle manual via JS
+
+            // Desabilita o botão de envio enquanto processa
+            const submitButton = document.getElementById('submit-button');
+            submitButton.disabled = true;
+            submitButton.innerText = "Processando...";
+
+            // Exibe um alerta de carregamento
+            Swal.fire({
+                title: 'Gerando o serviço .onion...',
+                text: 'Aguarde enquanto criamos o serviço para você.',
+                showCancelButton: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Submete o formulário após o processo
+            document.getElementById('onion-form').submit();
+        }
+
+        // Função para exibir alertas personalizados após a resposta do servidor
+        {% if message %}
+            window.onload = () => {
+                const message = "{{ message }}";
+                if (message.includes("sucesso")) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucesso!',
+                        text: message,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro!',
+                        text: message,
+                    });
+                }
+            };
+        {% endif %}
+    </script>
 </body>
 </html>
