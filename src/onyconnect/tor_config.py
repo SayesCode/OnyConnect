@@ -1,15 +1,15 @@
 import os
 import subprocess
 
-def generate_onion_service(port, directory):
+def generate_onion_service(port):
     try:
-        # Caminho para o diretório do serviço Onion
-        service_dir = "/tmp/hidden_service/"  # Ajustado para diretório temporário
+        # Definindo o diretório padrão do serviço Onion
+        service_dir = "src/onyconnect/config/hidden_service"
         os.makedirs(service_dir, exist_ok=True)
 
-        # Lendo o template torrc e substituindo as variáveis
+        # Lendo o template torrc e substituindo a porta
         with open("src/onyconnect/config/torrc_template", "r") as file:
-            torrc_content = file.read().format(port=port, directory=directory)
+            torrc_content = file.read().format(port=port, directory=service_dir)
         
         # Criando o arquivo torrc
         with open("src/onyconnect/config/torrc", "w") as file:
