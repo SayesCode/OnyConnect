@@ -14,6 +14,16 @@
 ## Runs-on:
 [![Runs](https://skillicons.dev/icons?i=windows,linux,docker&theme=light)](https://skillicons.dev)
 
+### Linux:
+```bash
+chmod +x start.sh
+bash ./start.sh
+```
+
+### Windows(Docker):
+`Just run the windows.vbs` 😉
+
+
 Welcome to the OnyConnect project! This repository provides a toolkit that allows you to serve a `.onion` site from anywhere using the Tor network, offering privacy and security in online connections.
 
 *Ubuntu's Workflow:* ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SayesCode/OnyConnect/.github%2Fworkflows%2FUbuntu.yml)
