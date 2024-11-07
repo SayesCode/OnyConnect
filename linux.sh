@@ -49,6 +49,7 @@ source venv/bin/activate
 # Installing FastAPI and dependencies in the virtual environment
 echo "Installing Python dependencies..."
 pip install fastapi jinja2 uvicorn python-multipart
+clear
 
 # Starting the main script
 echo "Starting..."
