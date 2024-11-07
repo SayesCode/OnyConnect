@@ -3,53 +3,53 @@ import subprocess
 import time
 import logging
 
-# Configura o logging
+# Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def generate_onion_service(port):
     try:
-        # Define o diretório de configuração com caminho absoluto
+        # Define the configuration directory with absolute path
         base_dir = os.path.abspath("src/onyconnect/config")
         service_dir = os.path.join(base_dir, "hidden_service")
         
-        # Cria o diretório para o serviço .onion com permissões corretas
-        logging.info("Criando diretório para o serviço .onion.")
+        # Create the directory for the .onion service with correct permissions
+        logging.info("Creating directory for the .onion service.")
         os.makedirs(service_dir, exist_ok=True)
-        os.chmod(service_dir, 0o700)  # Permissões restritas para Tor
+        os.chmod(service_dir, 0o700)  # Restricted permissions for Tor
         
-        # Lê o template do torrc e insere as variáveis necessárias
-        logging.info("Lendo e configurando o template torrc.")
+        # Read the torrc template and insert the necessary variables
+        logging.info("Reading and configuring the torrc template.")
         with open("src/onyconnect/config/torrc_template", "r") as file:
             torrc_content = file.read().format(port=port, directory=service_dir)
         
-        # Salva o conteúdo no arquivo torrc
+        # Save the content in the torrc file
         torrc_path = os.path.join(base_dir, "torrc")
-        logging.info(f"Salvando configuração torrc em {torrc_path}.")
+        logging.info(f"Saving torrc configuration at {torrc_path}.")
         with open(torrc_path, "w") as file:
             file.write(torrc_content)
 
-        # Inicia o Tor com o arquivo torrc especificado
-        logging.info("Iniciando o processo Tor.")
+        # Start Tor with the specified torrc file
+        logging.info("Starting Tor process.")
         tor_process = subprocess.Popen(["tor", "-f", torrc_path])
 
-        # Aguardar para garantir que o Tor tenha tempo para gerar o hostname
+        # Wait to ensure Tor has time to generate the hostname
         time.sleep(5)
 
-        # Verificar se o arquivo hostname foi criado
+        # Check if the hostname file has been created
         hostname_path = os.path.join(service_dir, "hostname")
         if os.path.exists(hostname_path):
-            logging.info("Arquivo hostname encontrado. Lendo hostname.")
+            logging.info("Hostname file found. Reading hostname.")
             with open(hostname_path, "r") as file:
                 hostname = file.read().strip()
-            # Finalizar o processo do Tor após gerar o hostname
-            logging.info("Hostname gerado com sucesso. Finalizando processo Tor.")
+            # Terminate the Tor process after generating the hostname
+            logging.info("Hostname generated successfully. Terminating Tor process.")
             tor_process.terminate()
             return hostname
         else:
-            # Finalizar o processo do Tor em caso de erro
-            logging.error("Arquivo hostname não encontrado. Finalizando processo Tor.")
+            # Terminate the Tor process in case of error
+            logging.error("Hostname file not found. Terminating Tor process.")
             tor_process.terminate()
-            raise FileNotFoundError("Arquivo hostname não encontrado. Verifique as permissões e configuração do Tor.")
+            raise FileNotFoundError("Hostname file not found. Check Tor's permissions and configuration.")
     except Exception as e:
-        logging.error(f"Erro ao gerar o serviço .onion: {e}")
+        logging.error(f"Error generating the .onion service: {e}")
         return None
