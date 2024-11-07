@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnyConnect - Configuração do Serviço .onion</title>
+    <title>OnyConnect - .onion Service Setup</title>
     <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        /* Estilos para responsividade */
+        /* Styles for responsiveness */
         .container {
             max-width: 600px;
             margin: auto;
@@ -33,22 +33,22 @@
 </head>
 <body>
     <div class="container">
-        <h1>OnyConnect - Configuração do Serviço .onion</h1>
+        <h1>OnyConnect - .onion Service Setup</h1>
 
-        <!-- Formulário para configuração do serviço .onion -->
+        <!-- Form for setting up the .onion service -->
         <form id="onion-form" method="post" action="/generate" onsubmit="handleFormSubmit(event)">
             <div class="form-group">
-                <label for="port">Porta:</label>
+                <label for="port">Port:</label>
                 <input type="text" id="port" name="port" placeholder="Ex: 3000" required>
             </div>
 
-            <button type="submit" class="btn-submit" id="submit-button">Gerar .onion</button>
+            <button type="submit" class="btn-submit" id="submit-button">Generate .onion</button>
         </form>
 
-        <!-- Exibição de mensagens de sucesso ou erro -->
+        <!-- Display success or error messages -->
         <div class="message" id="message">
             {% if onion_address %}
-                <p>Endereço .onion gerado: <strong>{{ onion_address }}</strong></p>
+                <p>Generated .onion address: <strong>{{ onion_address }}</strong></p>
             {% endif %}
             {% if message %}
                 <p>{{ message }}</p>
@@ -58,19 +58,19 @@
 
     <!-- Scripts -->
     <script>
-        // Função para tratar o envio do formulário
+        // Function to handle form submission
         function handleFormSubmit(event) {
-            event.preventDefault(); // Evita o envio do formulário para controle manual via JS
+            event.preventDefault(); // Prevents the form submission for manual control via JS
 
-            // Desabilita o botão de envio enquanto processa
+            // Disables the submit button while processing
             const submitButton = document.getElementById('submit-button');
             submitButton.disabled = true;
-            submitButton.innerText = "Processando...";
+            submitButton.innerText = "Processing...";
 
-            // Exibe um alerta de carregamento
+            // Displays a loading alert
             Swal.fire({
-                title: 'Gerando o serviço .onion...',
-                text: 'Aguarde enquanto criamos o serviço para você.',
+                title: 'Generating .onion service...',
+                text: 'Please wait while we create the service for you.',
                 showCancelButton: false,
                 showConfirmButton: false,
                 didOpen: () => {
@@ -78,24 +78,24 @@
                 }
             });
 
-            // Submete o formulário após o processo
+            // Submits the form after the process
             document.getElementById('onion-form').submit();
         }
 
-        // Função para exibir alertas personalizados após a resposta do servidor
+        // Function to display custom alerts after the server's response
         {% if message %}
             window.onload = () => {
                 const message = "{{ message }}";
-                if (message.includes("sucesso")) {
+                if (message.includes("success")) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Sucesso!',
+                        title: 'Success!',
                         text: message,
                     });
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Erro!',
+                        title: 'Error!',
                         text: message,
                     });
                 }
