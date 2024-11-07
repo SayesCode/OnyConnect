@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles 
+from fastapi.staticfiles import StaticFiles
 import os
 from tor_config import generate_onion_service
 import uvicorn
@@ -23,9 +23,9 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/generate")
-async def generate_service(request: Request, port: str = Form(...), directory: str = Form(...)):
+async def generate_service(request: Request, port: str = Form(...)):
     # Gerando o serviço Onion usando a função definida em tor_config
-    hostname = generate_onion_service(port, directory)
+    hostname = generate_onion_service(port)
     
     # Definindo a mensagem com base no resultado da geração do serviço Onion
     if hostname:
