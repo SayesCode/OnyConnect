@@ -5,7 +5,9 @@ from fastapi.staticfiles import StaticFiles
 import os
 from tor_config import generate_onion_service
 import uvicorn
+import logging
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 app = FastAPI()
 
 # Definindo o caminho para os diretórios 'static' e 'templates'
@@ -36,7 +38,7 @@ async def generate_service(request: Request, port: str = Form(...)):
     # Retornando a resposta com a mensagem para a página
     return templates.TemplateResponse("index.html", {"request": request, "message": message})
 
-print('Abra: http://localhost:8000')
+logging.info('Abra: http://localhost:8000')
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
