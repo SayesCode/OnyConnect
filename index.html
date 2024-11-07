@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnyConnect</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #0d1117;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+        .badges {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .badge img {
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+        .badge img:hover {
+            transform: scale(1.1);
+        }
+        .intro {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #1f2329;
+        }
+        .intro h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .intro p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        .intro img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .installation {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #23272a;
+        }
+        .installation h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #28a745;
+            padding: 15px 30px;
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+        .footer {
+            text-align: center;
+            background-color: #111;
+            color: #888;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>OnyConnect</h1>
+    <div class="badges">
+        <a href="https://github.com/SayesCode/OnyConnect" target="_blank" class="badge">
+            <img src="https://img.shields.io/github/stars/SayesCode/OnyConnect?style=social" alt="GitHub Stars">
+        </a>
+        <a href="https://img.shields.io/github/languages/code-size/SayesCode/OnyConnect" target="_blank" class="badge">
+            <img src="https://img.shields.io/github/languages/code-size/SayesCode/OnyConnect" alt="Code Size">
+        </a>
+        <a href="https://img.shields.io/github/license/SayesCode/OnyConnect" target="_blank" class="badge">
+            <img src="https://img.shields.io/github/license/SayesCode/OnyConnect" alt="License">
+        </a>
+    </div>
+</header>
+
+<div class="intro">
+    <h2>Welcome to OnyConnect</h2>
+    <p>OnyConnect allows you to securely host your `.onion` services using the Tor network, ensuring privacy, security, and anonymity for your online connections.</p>
+    <a href="https://www.torproject.org/">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Tor_Browser_icon.svg" alt="Tor Browser">
+    </a>
+</div>
+
+<div class="installation">
+    <h3>How OnyConnect Works:</h3>
+    <ul>
+        <li><strong>Tor-Enabled Hosting:</strong> Safely host your `.onion` services, hiding your IP and ensuring an encrypted connection.</li>
+        <li><strong>Seamless Integration:</strong> Runs anywhere: local servers, cloud instances, or your own machine.</li>
+        <li><strong>Enhanced Privacy:</strong> End-to-end encryption and routing through multiple Tor nodes for maximum privacy.</li>
+    </ul>
+
+    <p><strong>Runs-On:</strong></p>
+    <p><img src="https://skillicons.dev/icons?i=windows,linux,docker&theme=light" alt="Runs on Windows, Linux, Docker"></p>
+
+    <div class="buttons">
+        <a href="SetupOnyConnect.vbs" class="button" download>Install for Windows</a>
+        <a href="SetupOnyConnect" class="button" download>Install for Linux</a>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>By using OnyConnect, you agree to comply with all laws and regulations. Use responsibly.</p>
+</footer>
+
+</body>
+</html>

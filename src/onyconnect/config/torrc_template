@@ -1,3 +1,0 @@
-HiddenServiceDir {directory}
-HiddenServicePort 80 127.0.0.1:{port}
-SocksPort 9060
