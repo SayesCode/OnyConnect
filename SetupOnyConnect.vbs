@@ -1,4 +1,4 @@
-Dim objXMLHttp, objFSO, objShell, tempDir, extractDir, projectFolder, pythonExe
+Dim objXMLHttp, objFSO, objShell, tempDir, extractDir, projectFolder, pythonExe, zipFile
 
 ' Criar instâncias dos objetos necessários
 Set objXMLHttp = CreateObject("MSXML2.XMLHTTP")
@@ -8,21 +8,32 @@ Set objShell = CreateObject("WScript.Shell")
 ' Definir diretórios temporários
 tempDir = objFSO.GetSpecialFolder(2) ' Pasta temp do usuário
 extractDir = tempDir & "\OnyConnect"
+zipFile = tempDir & "\OnyConnect.zip"
 
-' Baixar o repositório do GitHub diretamente (sem zip)
-objXMLHttp.Open "GET", "https://github.com/SayesCode/OnyConnect", False
+' Baixar o repositório do GitHub como um arquivo ZIP
+objXMLHttp.Open "GET", "https://github.com/SayesCode/OnyConnect/archive/refs/heads/main.zip", False
 objXMLHttp.Send
 
-' Salvar o conteúdo da resposta diretamente em uma pasta (não um arquivo zip)
+' Salvar o conteúdo como um arquivo ZIP
 If objXMLHttp.Status = 200 Then
+    Set objFile = objFSO.CreateTextFile(zipFile, True)
+    objFile.Write(objXMLHttp.responseBody)
+    objFile.Close
+End If
+
+' Verificar se o arquivo ZIP foi baixado corretamente
+If objFSO.FileExists(zipFile) Then
     ' Criar diretório de extração
     If Not objFSO.FolderExists(extractDir) Then
         objFSO.CreateFolder(extractDir)
     End If
 
-    ' Definir o nome do arquivo de saída (por exemplo, uma pasta ou arquivo em vez de ZIP)
-    ' Dependendo da implementação, aqui você pode manipular os arquivos conforme necessário
-    ' Exemplo: salvar os arquivos diretamente (sem usar ZIP)
+    ' Descompactar o arquivo ZIP
+    Set objShellApp = CreateObject("Shell.Application")
+    objShellApp.NameSpace(extractDir).CopyHere objShellApp.NameSpace(zipFile).Items, 4
+
+    ' Esperar o processo de extração terminar
+    WScript.Sleep 5000
 End If
 
 ' Verificar se o Python está instalado
@@ -40,7 +51,7 @@ pythonExe = "python"
 
 ' Navegar até o diretório do projeto
 If objFSO.FolderExists(extractDir) Then
-    Set projectFolder = objFSO.GetFolder(extractDir)
+    Set projectFolder = objFSO.GetFolder(extractDir & "\OnyConnect-main")
 End If
 
 ' Instalar as dependências do requirements.txt
@@ -50,5 +61,6 @@ End If
 
 ' Rodar o script Python
 If objFSO.FolderExists(projectFolder.Path) Then
-    objShell.Run pythonExe & " """ & projectFolder.Path & "\main.py""", 1, True
+    ' Abrir a janela do terminal de forma visível e manter aberta
+    objShell.Run "cmd /K """ & pythonExe & " """ & projectFolder.Path & "\main.py""", 1, True
 End If
