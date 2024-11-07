@@ -1,7 +1,7 @@
-Dim objXMLHttp, objFSO, objShell, tempDir, extractDir, projectFolder, pythonExe, zipFile
+Dim objWinHttp, objFSO, objShell, tempDir, extractDir, projectFolder, pythonExe, zipFile
 
 ' Criar instâncias dos objetos necessários
-Set objXMLHttp = CreateObject("MSXML2.XMLHTTP")
+Set objWinHttp = CreateObject("WinHttp.WinHttpRequest.5.1")
 Set objFSO = CreateObject("Scripting.FileSystemObject")
 Set objShell = CreateObject("WScript.Shell")
 
@@ -11,13 +11,13 @@ extractDir = tempDir & "\OnyConnect"
 zipFile = tempDir & "\OnyConnect.zip"
 
 ' Baixar o repositório do GitHub como um arquivo ZIP
-objXMLHttp.Open "GET", "https://github.com/SayesCode/OnyConnect/archive/refs/heads/main.zip", False
-objXMLHttp.Send
+objWinHttp.Open "GET", "https://github.com/SayesCode/OnyConnect/archive/refs/heads/main.zip", False
+objWinHttp.Send
 
 ' Salvar o conteúdo como um arquivo ZIP
-If objXMLHttp.Status = 200 Then
+If objWinHttp.Status = 200 Then
     Set objFile = objFSO.CreateTextFile(zipFile, True)
-    objFile.Write(objXMLHttp.responseBody)
+    objFile.Write(objWinHttp.ResponseBody)
     objFile.Close
 End If
 
