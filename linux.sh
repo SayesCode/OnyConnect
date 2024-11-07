@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Verifica a arquitetura do sistema
+# Check system architecture
 arch=$(uname -m)
 
-# Função para instalar o apt com o gerenciador de pacotes do sistema
+# Function to install apt using the system's package manager
 install_apt() {
-    echo "apt-get não encontrado. Tentando instalar o apt usando o gerenciador de pacotes do sistema..."
+    echo "apt-get not found. Attempting to install apt using the system's package manager..."
 
     if command -v yum &> /dev/null; then
         sudo yum install -y apt
@@ -16,15 +16,15 @@ install_apt() {
     elif command -v pacman &> /dev/null; then
         sudo pacman -S --noconfirm apt
     else
-        echo "Não foi possível encontrar um gerenciador de pacotes compatível para instalar o apt. Instale-o manualmente."
+        echo "Could not find a compatible package manager to install apt. Install it manually."
         exit 1
     fi
 
-    # Atualiza o índice de pacotes após a instalação do apt
+    # Update the package index after installing apt
     sudo apt-get update -y
 }
 
-# Verificação do sistema e instalação dos pacotes necessários
+# System check and installation of necessary packages
 if [[ "$arch" == *'arm'* || "$arch" == *'Android'* ]]; then
    pkg install -y tor
    pkg install -y python3
@@ -33,23 +33,23 @@ else
    if ! command -v apt-get &> /dev/null; then
        install_apt
    fi
-   echo "Atualizando sistema e instalando dependências..."
+   echo "Updating system and installing dependencies..."
    sudo apt-get update -y
    sudo apt-get install -y python3 python3-pip python3-venv tor
 fi
 
-# Criação do ambiente virtual
-echo "Criando ambiente virtual..."
+# Create the virtual environment
+echo "Creating virtual environment..."
 python3 -m venv venv
 
-# Ativando o ambiente virtual
-echo "Ativando o ambiente virtual..."
+# Activate the virtual environment
+echo "Activating virtual environment..."
 source venv/bin/activate
 
-# Instalando FastAPI e dependências no ambiente virtual
-echo "Instalando dependências do Python..."
+# Installing FastAPI and dependencies in the virtual environment
+echo "Installing Python dependencies..."
 pip install fastapi jinja2 uvicorn python-multipart
 
-# Iniciando o script principal
-echo "Iniciando..."
+# Starting the main script
+echo "Starting..."
 python src/onyconnect/main.py &
