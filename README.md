@@ -18,8 +18,6 @@ Welcome to the OnyConnect project! This repository provides a toolkit that allow
 
 *Ubuntu's Workflow:* ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SayesCode/OnyConnect/.github%2Fworkflows%2FUbuntu.yml)
 
-*Windows's Workflow:* ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SayesCode/OnyConnect/.github%2Fworkflows%2FWindows.yml)
-
 ### How it works:
 
 1. **Tor-Enabled Hosting**: OnyConnect allows you to securely host your `.onion` services without worrying about revealing your IP address. It establishes an encrypted connection over the Tor network, keeping you anonymous.
