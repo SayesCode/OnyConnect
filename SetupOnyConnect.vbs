@@ -48,8 +48,6 @@ If objFSO.FileExists(projectFolder.Path & "\requirements.txt") Then
     objShell.Run pythonExe & " -m pip install -r """ & projectFolder.Path & "\requirements.txt""", 1, True
 End If
 
-objShell.Run "cls", 0, True
-
 ' Rodar o script Python
 If objFSO.FolderExists(projectFolder.Path) Then
     objShell.Run pythonExe & " """ & projectFolder.Path & "\main.py""", 1, True
