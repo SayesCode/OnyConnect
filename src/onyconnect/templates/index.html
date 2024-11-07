@@ -6,6 +6,30 @@
     <title>OnyConnect - Configuração do Serviço .onion</title>
     <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Estilos para responsividade */
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -22,11 +46,14 @@
         </form>
 
         <!-- Exibição de mensagens de sucesso ou erro -->
-        {% if message %}
-            <div class="message" id="message">
+        <div class="message" id="message">
+            {% if onion_address %}
+                <p>Endereço .onion gerado: <strong>{{ onion_address }}</strong></p>
+            {% endif %}
+            {% if message %}
                 <p>{{ message }}</p>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 
     <!-- Scripts -->
