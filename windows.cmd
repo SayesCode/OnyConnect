@@ -1,50 +1,47 @@
 @echo off
 setlocal
 
-:: Verificar se o Docker está instalado
+:: Check if Docker is installed
 docker --version >nul 2>nul
 if %errorlevel% neq 0 (
-    echo Docker não encontrado. Instalando Docker Desktop...
+    echo Docker not found. Installing Docker Desktop...
 
-    :: Verificar se Winget está instalado
+    :: Check if Winget is installed
     where winget >nul 2>nul
     if %errorlevel% equ 0 (
-        echo Winget encontrado. Instalando Docker Desktop com Winget...
+        echo Winget found. Installing Docker Desktop with Winget...
         winget install -e --id Docker.DockerDesktop -h
         goto :end
     )
 
-    :: Verificar se Chocolatey está instalado
+    :: Check if Chocolatey is installed
     where choco >nul 2>nul
     if %errorlevel% equ 0 (
-        echo Chocolatey encontrado. Instalando Docker Desktop com Chocolatey...
+        echo Chocolatey found. Installing Docker Desktop with Chocolatey...
         choco install docker-desktop -y
         goto :end
     )
 
-    :: Verificar se Scoop está instalado
+    :: Check if Scoop is installed
     where scoop >nul 2>nul
     if %errorlevel% equ 0 (
-        echo Scoop encontrado. Instalando Docker Desktop com Scoop...
+        echo Scoop found. Installing Docker Desktop with Scoop...
         scoop install docker
         goto :end
     )
 
-    :: Instalar Chocolatey se nenhum gerenciador foi encontrado
-    echo Nenhum gerenciador de pacotes encontrado. Instalando Chocolatey...
+    :: Install Chocolatey if no package manager was found
+    echo No package manager found. Installing Chocolatey...
     powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
     
-    :: Instalar Docker Desktop com Chocolatey
+    :: Install Docker Desktop with Chocolatey
     choco install docker-desktop -y
 )
 
-:: Tentar rodar o Docker Compose
+:: Try to run Docker Compose
 docker-compose up --build -d
 if %errorlevel% neq 0 (
-    echo Ocorreu um erro ao executar o comando docker-compose. Verifique se o Docker está instalado corretamente.
-    echo Se o problema persistir, baixe e instale o Docker manualmente do site oficial: https://www.docker.com/
+    echo An error occurred when running the docker-compose command. Check if Docker is installed correctly.
+    echo If the problem persists, download and install Docker manually from the official website: https://www.docker.com/
     goto :end
 )
-
-:end
-echo Abra: http://127.0.0.1:8000.
