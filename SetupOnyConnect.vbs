@@ -1,4 +1,4 @@
-Dim objXMLHttp, objFSO, objShell, zipFile, tempDir, extractDir, pythonInstalled, projectFolder, pythonExe
+Dim objXMLHttp, objFSO, objShell, tempDir, extractDir, projectFolder, pythonExe
 
 ' Criar instâncias dos objetos necessários
 Set objXMLHttp = CreateObject("MSXML2.XMLHTTP")
@@ -7,26 +7,23 @@ Set objShell = CreateObject("WScript.Shell")
 
 ' Definir diretórios temporários
 tempDir = objFSO.GetSpecialFolder(2) ' Pasta temp do usuário
-zipFile = tempDir & "\OnyConnect.zip"
 extractDir = tempDir & "\OnyConnect"
 
-' Baixar o arquivo ZIP do repositório GitHub
-objXMLHttp.Open "GET", "https://github.com/SayesCode/OnyConnect/archive/refs/heads/main.zip", False
+' Baixar o repositório do GitHub diretamente (sem zip)
+objXMLHttp.Open "GET", "https://github.com/SayesCode/OnyConnect", False
 objXMLHttp.Send
 
-' Salvar o conteúdo do ZIP no diretório temporário
+' Salvar o conteúdo da resposta diretamente em uma pasta (não um arquivo zip)
 If objXMLHttp.Status = 200 Then
-    Set objFile = objFSO.CreateTextFile(zipFile, True)
-    objFile.Write objXMLHttp.responseBody
-    objFile.Close
+    ' Criar diretório de extração
+    If Not objFSO.FolderExists(extractDir) Then
+        objFSO.CreateFolder(extractDir)
+    End If
+
+    ' Definir o nome do arquivo de saída (por exemplo, uma pasta ou arquivo em vez de ZIP)
+    ' Dependendo da implementação, aqui você pode manipular os arquivos conforme necessário
+    ' Exemplo: salvar os arquivos diretamente (sem usar ZIP)
 End If
-
-' Extrair o conteúdo do arquivo ZIP
-Set objShell = CreateObject("Shell.Application")
-objShell.NameSpace(extractDir).CopyHere objShell.NameSpace(zipFile).Items
-
-' Aguardar a extração do ZIP
-WScript.Sleep 5000
 
 ' Verificar se o Python está instalado
 On Error Resume Next
@@ -41,16 +38,9 @@ On Error GoTo 0
 ' Definir caminho do executável do Python
 pythonExe = "python"
 
-' Navegar até o diretório do projeto extraído
-Set objFSO = CreateObject("Scripting.FileSystemObject")
+' Navegar até o diretório do projeto
 If objFSO.FolderExists(extractDir) Then
     Set projectFolder = objFSO.GetFolder(extractDir)
-    For Each subFolder In projectFolder.Subfolders
-        If subFolder.Name = "OnyConnect" Then
-            Set projectFolder = subFolder
-            Exit For
-        End If
-    Next
 End If
 
 ' Instalar as dependências do requirements.txt
