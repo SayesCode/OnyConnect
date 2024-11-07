@@ -85,6 +85,28 @@
             color: #888;
             padding: 15px;
         }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .badges img {
+                height: 30px;
+            }
+            .intro h2 {
+                font-size: 1.5rem;
+            }
+            .intro p {
+                font-size: 1rem;
+            }
+            .installation h3 {
+                font-size: 1.5rem;
+            }
+            .button {
+                font-size: 16px;
+                padding: 12px 25px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -92,13 +114,13 @@
 <header>
     <h1>OnyConnect</h1>
     <div class="badges">
-        <a href="https://github.com/SayesCode/OnyConnect" target="_blank" class="badge">
+        <a href="https://github.com/SayesCode/OnyConnect" target="_blank" class="badge" aria-label="GitHub Stars">
             <img src="https://img.shields.io/github/stars/SayesCode/OnyConnect?style=social" alt="GitHub Stars">
         </a>
-        <a href="https://img.shields.io/github/languages/code-size/SayesCode/OnyConnect" target="_blank" class="badge">
+        <a href="https://img.shields.io/github/languages/code-size/SayesCode/OnyConnect" target="_blank" class="badge" aria-label="Code Size">
             <img src="https://img.shields.io/github/languages/code-size/SayesCode/OnyConnect" alt="Code Size">
         </a>
-        <a href="https://img.shields.io/github/license/SayesCode/OnyConnect" target="_blank" class="badge">
+        <a href="https://img.shields.io/github/license/SayesCode/OnyConnect" target="_blank" class="badge" aria-label="License">
             <img src="https://img.shields.io/github/license/SayesCode/OnyConnect" alt="License">
         </a>
     </div>
@@ -107,7 +129,7 @@
 <div class="intro">
     <h2>Welcome to OnyConnect</h2>
     <p>OnyConnect allows you to securely host your `.onion` services using the Tor network, ensuring privacy, security, and anonymity for your online connections.</p>
-    <a href="https://www.torproject.org/">
+    <a href="https://www.torproject.org/" aria-label="Learn more about Tor Project">
         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Tor_Browser_icon.svg" alt="Tor Browser">
     </a>
 </div>
