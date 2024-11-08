@@ -1,6 +1,5 @@
 FROM python:3.11-slim AS OnyCon-runtime
 
-# Instale o Tor
 RUN apt-get update && \
     apt-get install -y tor && \
     rm -rf /var/lib/apt/lists/*
