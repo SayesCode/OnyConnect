@@ -1,4 +1,3 @@
-' Cria o arquivo batch com os comandos
 Dim fso, file
 Set fso = CreateObject("Scripting.FileSystemObject")
 Set file = fso.CreateTextFile("docker_install.bat", True)
@@ -52,6 +51,5 @@ file.WriteLine(")")
 
 file.Close
 
-' Executa o arquivo batch criado
 Set objShell = CreateObject("WScript.Shell")
 objShell.Run "cmd /k docker_install.bat"
